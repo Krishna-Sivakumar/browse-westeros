@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Digital Assignment 1
+        </title>
+        <link rel="stylesheet" type="text/css" href="da1.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet'>
+        <script src="app.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <h1 style="font-size: 3rem;" class="center">
+            <u>Browse the Map of Westeros!</u>
+        </h1>
+        <nav id = "nav">
+            <a class="navitem" href="#making">Making of the Project</a>
+            <a class="navitem" href="https://awoiaf.westeros.org/index.php/Main_Page" target="_blank">Root of the GOT Wiki</a>
+        </nav>
+        <span class = "center">
+            <h2>
+                Try hovering or clicking one of the scrolls below!
+            </h2>
+        </span>
+        <hr>
+        <canvas id="mapCanvas"></canvas>
+        <p style="font-size:0.75em;"><i>Image rights belong to <a target="_blank" href="http://www.matthew-pauly.com/2015/06/vector-based-map-of-westeros/">Matthew Pauly</a></i></p>
+        <hr>
+        <h2 id = "making" class="center">How was this project made?</h2>
+        <h4 class="center" style="margin-left: 5em; margin-right: 5em;">
+            This project was made with HTML, CSS and Javascript. 
+        </h4>
+        <details>
+            <summary>Implementation Details Below</summary>
+            <h4 class="center" style="margin-left: 5em; margin-right: 5em;">
+                The map above has legends that get highlighted when hoevered over, which was implemented with 
+                a canvas. The canvas has the map image as a background, and draws a low-alpha rectangle around a legend 
+                if the cursor is over it.
+            </h4>
+            <h4 class="center" style="margin-left: 5em; margin-right: 5em;">
+                Every time the cursor moves, an event is triggered to check whether the mouse is over a legend. If so, 
+                a highlight is drawn, or else the drawn highlight is removed. Clicking on a legend also triggers an onclick
+                method that navigates to a page in the Game of Thrones wiki.
+            </h4>
+            
+        </details>
+        <hr>
+        <p style="margin-left: 20%">
+            Made by <a class="navitem" href="https://github.com/Krishna-Sivakumar">Krishna Sivakumar</a> |
+            Email: <a class="navitem" href="/krishna.s2019@gmail.vitstudent.ac.in">krishna.s2019@gmail.vitstudent.ac.in</a> |
+            <a href = "#top" class="navitem">Go back to the top</a>
+        </p>
+    </body>
+</html>
