@@ -30,9 +30,7 @@ canvas#mapCanvas {
 }
 
 .center {
-    display: flex; 
-    justify-content: center; 
-    line-height: 2em;
+    text-align: center;
 }
 
 #footer > * {

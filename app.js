@@ -6,6 +6,21 @@ function getMousePos(canvas, evt){
     }
 }
 
+window.onscroll = () => {
+  
+  function getScrollPercent() {
+    var h = document.documentElement, 
+        b = document.body,
+        st = 'scrollTop',
+        sh = 'scrollHeight';
+    return (h[st]||b[st]) / ((h[sh]||b[sh]) - h.clientHeight) * 100;
+  }
+
+  progress_bar = document.getElementById("scrollProgress");
+  progress_bar.value = String(getScrollPercent()); 
+
+}
+
 function findRectangle(mousePos){
   for (i in rectangles){
     rect = rectangles[i];
