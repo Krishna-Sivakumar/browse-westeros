@@ -47,6 +47,44 @@ function drawRectangle(i){
     rectangleDrawn = true;
 }
 
+function drawZoomedSection(i){
+    if (rectangleDrawn) return;
+    var ctx = canvas.getContext("2d");
+    
+    /*
+    rectangle_coords = Object.assign({}, rectangles[i]);
+    rectangle_coords[0].x = Math.max(0, rectangle_coords[0].x-100)
+    rectangle_coords[0].y = Math.max(0, rectangle_coords[0].y-100)
+    rectangle_coords[1].x = Math.max(0, rectangle_coords[0].x+100)
+    rectangle_coords[1].y = Math.max(0, rectangle_coords[0].y+100)
+    
+
+    scaled_coords = {
+      x: rectangle_coords[0].x * 3600 / 1250,
+      y: rectangle_coords[0].y * 3600 / 1250,
+    }
+    */
+
+    scaled_coords = {
+      x: i.x * 3600 / 1250,
+      y: i.y * 3600 / 1250,
+    }
+
+    ctx.filter = "brightness(1.2)";
+    img = document.getElementById("src_image")
+
+
+    /*
+    ctx.drawImage(img, scaled_coords.x - 100, scaled_coords.y - 400, 450, 900,
+      rectangle_coords[0].x - 100, rectangle_coords[0].y - 100, 200, 400);
+    */
+
+   ctx.drawImage(img, scaled_coords.x - 200, scaled_coords.y - 400, 450, 900,
+      i.x - 100, i.y - 100, 200, 400);
+
+      rectangleDrawn = true;
+}
+
 window.onload = () =>{
   canvasWidth = 1250;
   canvas = document.getElementsByTagName('canvas').mapCanvas;
@@ -60,7 +98,12 @@ window.onload = () =>{
     mousePos = getMousePos(canvas, evt);
     index = findRectangle(mousePos);
     if (index > -1){
-      drawRectangle(i);
+        if (rectangleDrawn){
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          rectangleDrawn = false;
+      }
+      drawZoomedSection(mousePos);
+      //drawZoomedSection(i);
       return;
     }
     if (rectangleDrawn){
