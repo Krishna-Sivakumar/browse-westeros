@@ -80,7 +80,7 @@ function drawZoomedSection(i){
     */
 
    ctx.drawImage(img, scaled_coords.x - 200, scaled_coords.y - 400, 450, 900,
-      i.x - 100, i.y - 100, 200, 400);
+      i.x - 100, i.y - 180, 200, 400);
 
       rectangleDrawn = true;
 }
