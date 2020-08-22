@@ -47,42 +47,26 @@ function drawRectangle(i){
     rectangleDrawn = true;
 }
 
-function drawZoomedSection(i){
+function drawZoomedSection(i, context){
     if (rectangleDrawn) return;
-    var ctx = canvas.getContext("2d");
-    
-    /*
-    rectangle_coords = Object.assign({}, rectangles[i]);
-    rectangle_coords[0].x = Math.max(0, rectangle_coords[0].x-100)
-    rectangle_coords[0].y = Math.max(0, rectangle_coords[0].y-100)
-    rectangle_coords[1].x = Math.max(0, rectangle_coords[0].x+100)
-    rectangle_coords[1].y = Math.max(0, rectangle_coords[0].y+100)
-    
-
-    scaled_coords = {
-      x: rectangle_coords[0].x * 3600 / 1250,
-      y: rectangle_coords[0].y * 3600 / 1250,
-    }
-    */
 
     scaled_coords = {
       x: i.x * 3600 / 1250,
       y: i.y * 3600 / 1250,
     }
 
-    ctx.filter = "brightness(1.2)";
+    context.filter = "brightness(1.2)";
     img = document.getElementById("src_image")
 
+    context.beginPath();
+    context.arc(i.x, i.y, 100, 0, 2 * Math.PI);
+    context.closePath();
+    context.clip();
 
-    /*
-    ctx.drawImage(img, scaled_coords.x - 100, scaled_coords.y - 400, 450, 900,
-      rectangle_coords[0].x - 100, rectangle_coords[0].y - 100, 200, 400);
-    */
-
-   ctx.drawImage(img, scaled_coords.x - 200, scaled_coords.y - 400, 450, 900,
+   context.drawImage(img, scaled_coords.x - 200, scaled_coords.y - 400, 450, 900,
       i.x - 100, i.y - 180, 200, 400);
 
-      rectangleDrawn = true;
+    rectangleDrawn = true;
 }
 
 window.onload = () =>{
@@ -94,31 +78,34 @@ window.onload = () =>{
 
   rectangleDrawn = false;
 
-  canvas.addEventListener('mousemove', evt => {
+  canvas.addEventListener('mousemove', evt => {   
     mousePos = getMousePos(canvas, evt);
     index = findRectangle(mousePos);
     if (index > -1){
         if (rectangleDrawn){
           ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.restore();
           rectangleDrawn = false;
       }
-      drawZoomedSection(mousePos);
-      //drawZoomedSection(i);
+      ctx.save();
+      drawZoomedSection(mousePos, ctx);
+      ctx.restore();
       return;
     }
     if (rectangleDrawn){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.restore();
         rectangleDrawn = false;
     }
   });
 
-    canvas.addEventListener('click', evt => {
-        mousePos = getMousePos(canvas, evt);
-        index = findRectangle(mousePos);
-        if (index > -1){
-          window.open(rectangles[i].link);
-        }
-    });
+  canvas.addEventListener('click', evt => {
+    mousePos = getMousePos(canvas, evt);
+    index = findRectangle(mousePos);
+    if (index > -1){
+      window.open(rectangles[i].link);
+    }
+  });
 }
 
 
